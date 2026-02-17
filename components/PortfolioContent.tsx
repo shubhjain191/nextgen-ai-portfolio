@@ -1,12 +1,13 @@
 import { HeroSection } from "./sections/HeroSection";
 import { AboutSection } from "./sections/AboutSection";
+import { TestimonialsSection } from "./sections/TestimonialsSection";
 
 async function PortfolioContent() {
   return (
     <>
       <HeroSection />
       <AboutSection />
-      {/* <TestimonialSection /> */}
+      <TestimonialsSection />
       {/* <ExperienceSection /> */}
       {/* <ProjectsSection /> */}
       {/* <EducationSection /> */}

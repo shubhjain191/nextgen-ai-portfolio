@@ -103,16 +103,16 @@ export async function AboutSection() {
         {profile.stats && profile.stats.length > 0 && (
           <div className="@container mt-20 pt-10 border-t border-border/40">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-              {profile.stats.map((stat: { value: string; label: string }, idx: number) => (
+              {profile.stats.map((stat: { value?: string; label?: string; _key: string }) => (
                 <div
-                  key={`${stat.label}-${idx}`}
+                  key={stat._key}
                   className="group relative p-6 rounded-2xl bg-card/50 border-2 border-border/50 hover:border-primary/20 hover:bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1 text-center"
                 >
                   <div className="text-3xl md:text-4xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {stat.value}
+                    {stat.value || ""}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider group-hover:text-foreground/80 transition-colors">
-                    {stat.label}
+                    {stat.label || ""}
                   </div>
                 </div>
               ))}
