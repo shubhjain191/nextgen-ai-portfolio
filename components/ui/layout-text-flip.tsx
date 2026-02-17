@@ -31,9 +31,11 @@ export const LayoutTextFlip = ({
         className,
       )}
     >
-      <motion.span layoutId="subtext" className="drop-shadow-lg">
-        {text}
-      </motion.span>
+      {text && (
+        <motion.span layoutId="subtext" className="drop-shadow-lg">
+          {text}
+        </motion.span>
+      )}
 
       <motion.span
         layout
