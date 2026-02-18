@@ -54,28 +54,6 @@ export function ProfileImage({
         </div>
         <span className="text-xs font-medium text-white">Online</span>
       </div>
-
-      {/* Hover Overlay */}
-      <div
-        className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div className="text-center space-y-3">
-          {open ? (
-            <X className="w-12 h-12 text-white mx-auto" />
-          ) : (
-            <MessageCircle className="w-12 h-12 text-white mx-auto" />
-          )}
-
-          <div className="text-white text-xl font-semibold">
-            {open ? "Close Chat" : "Chat with AI Twin"}
-          </div>
-          <div className="text-white/80 text-sm">
-            {open ? "Click to close chat" : "Click to open chat"}
-          </div>
-        </div>
-      </div>
     </button>
   );
 }

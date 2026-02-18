@@ -4,8 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { SanityLive } from "@/sanity/lib/live";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import SidebarToggle from "@/components/SidebarToggle";
+//import { AppSidebar } from "@/components/app-sidebar";
+//import SidebarToggle from "@/components/SidebarToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,13 +37,13 @@ export default function RootLayout({
             <SidebarInset>
               {children}
             </SidebarInset>
-            <AppSidebar side="right" />
 
             {
               /* <FloatingDock />
+              <AppSidebar side="right" />
               */
             }
-            <SidebarToggle />
+            {/* <SidebarToggle /> */}
           </SidebarProvider>
           <SanityLive />
         </body>
