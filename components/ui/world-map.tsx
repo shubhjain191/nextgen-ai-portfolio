@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { motion } from "motion/react";
 import DottedMap from "dotted-map";
 
@@ -19,16 +19,32 @@ export default function WorldMap({
   lineColor = "#0ea5e9",
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const map = new DottedMap({ height: 100, grid: "diagonal" });
+  const [mounted, setMounted] = useState(false);
 
-  const { theme } = useTheme();
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const svgMap = map.getSVG({
-    radius: 0.22,
-    color: theme === "dark" ? "#FFFFFF40" : "#00000040",
-    shape: "circle",
-    backgroundColor: theme === "dark" ? "black" : "white",
-  });
+  const { resolvedTheme } = useTheme();
+
+  const map = useMemo(() => new DottedMap({ height: 100, grid: "diagonal" }), []);
+
+  const svgMap = useMemo(() => {
+    return map.getSVG({
+      radius: 0.22,
+      color: mounted && resolvedTheme === "dark" ? "#FFFFFF40" : "#00000040",
+      shape: "circle",
+      backgroundColor: mounted && resolvedTheme === "dark" ? "black" : "white",
+    });
+  }, [mounted, resolvedTheme, map]);
+
+  if (!mounted) {
+    return (
+      <div className="w-full aspect-2/1 bg-muted/20 animate-pulse rounded-lg flex items-center justify-center border border-muted/30">
+        <div className="text-muted-foreground/50 text-sm font-medium">Loading World Map...</div>
+      </div>
+    );
+  }
 
   const projectPoint = (lat: number, lng: number) => {
     const x = (lng + 180) * (800 / 360);
@@ -46,10 +62,11 @@ export default function WorldMap({
   };
 
   return (
-    <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg  relative font-sans">
+    <div className="w-full aspect-2/1 dark:bg-black bg-white rounded-lg relative font-sans">
       <img
+        suppressHydrationWarning
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
-        className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"
+        className="h-full w-full mask-[linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"
         alt="world map"
         height="495"
         width="1056"
